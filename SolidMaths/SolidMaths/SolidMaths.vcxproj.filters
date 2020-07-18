@@ -33,6 +33,9 @@
     <ClInclude Include="Source\Include\Vector\vector4.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Include\Utils\constants.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Include\Matrix\baseMatrix.inl">
