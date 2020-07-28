@@ -3,7 +3,7 @@
 #include <array>
 
 /**
- * @brief Base class for matrix and vector. Musn't be instancied, but only inherited.
+ * @brief Base class for matrix. Musn't be instancied, but only inherited.
  *
  * @tparam CHILD Child class.
  * @tparam ROW Number of row.
@@ -21,6 +21,7 @@ protected:
 	using SelfType = BaseMatrix<CHILD, ROW, COL, TYPE>;
 	using Type = TYPE;
 
+	BaseMatrix() {}
 public:
 
 	inline static constexpr size_t getNbRow() noexcept;

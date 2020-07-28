@@ -1,20 +1,22 @@
 #pragma once
 
-#include "../Matrix/baseMatrix.hpp"
-
 /**
- * @brief Base class for vector with N dimension.
+ * @brief Base class for vector with N dimension. Musn't be instancied, but only inherited.
  *
  * @tparam CHILD Child class.
  * @tparam DIM Number of dimension.
  * @tparam TYPE Type of value stored. Default = float.
 */
 template <class CHILD, size_t DIM, typename TYPE = float> 
-class BaseVector : public BaseMatrix<CHILD,1,DIM,TYPE>
+class BaseVector
 {
 protected:
+	std::array<TYPE, DIM> data = {};
+
 	using SelfType = BaseVector<CHILD, DIM, TYPE>;
 	using Type = TYPE;
+
+	BaseVector() {}
 public:
 
 #pragma region Static Methods

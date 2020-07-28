@@ -270,6 +270,27 @@
 	}
 
 	BASE_VECTOR_TEMPLATE
+	constexpr BASE_VECTOR& BASE_VECTOR::operator=(const BASE_VECTOR& _vect) noexcept
+	{
+		for (size_t i = 0; i < DIM; i++)
+			this->data[i] = _vect[i];
+
+		return *this;
+	}
+
+	BASE_VECTOR_TEMPLATE
+	constexpr bool BASE_VECTOR::operator==(const SelfType& _vect) const noexcept
+	{
+		return isEquals(_vect);
+	}
+
+	BASE_VECTOR_TEMPLATE
+	constexpr bool BASE_VECTOR::operator!=(const SelfType& _vect) const noexcept
+	{
+		return !isEquals(_vect);
+	}
+
+	BASE_VECTOR_TEMPLATE
 	constexpr TYPE BASE_VECTOR::operator[](const size_t _index) const noexcept
 	{
 		return this->data[_index];

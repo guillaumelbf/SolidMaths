@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Include\Matrix\baseMatrix.hpp" />
+    <ClInclude Include="Source\Include\Matrix\matrix.hpp" />
     <ClInclude Include="Source\Include\Utils\constants.hpp" />
     <ClInclude Include="Source\Include\Vector\baseVector.hpp" />
     <ClInclude Include="Source\Include\Vector\vector.hpp" />

@@ -10,8 +10,11 @@ public:
 	TYPE& y;
 
 	constexpr sVect2();
+	constexpr sVect2(const sVect2& _copy);
 	constexpr sVect2(const TYPE& _x, const TYPE& _y);
 	constexpr sVect2(const TYPE& _value);
+
+	constexpr sVect2& operator=(const sVect2& _vect) noexcept;
 };
 
 #include "vector2.inl"
