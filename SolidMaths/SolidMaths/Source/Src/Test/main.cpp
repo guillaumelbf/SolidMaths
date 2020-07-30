@@ -18,6 +18,15 @@ int main()
 	std::cout << vect2_0.x << "," << vect2_0.y << std::endl;
 	std::cout << vect2_1.x << "," << vect2_1.y << std::endl;
 
+	sMat<1, 3> mat;
+	sMat<3, 1> mat2;
+	sMat<1, 1> mat3;
+
+	mat.at(2, 1) = 5;
+
+	mat3 = mat.getMultiplied(mat2);
+
+	std::cout << mat << std::endl;
 
 
 	return 0;
