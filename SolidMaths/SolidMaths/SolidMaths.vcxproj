@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClInclude Include="Source\Include\Matrix\baseMatrix.hpp" />
     <ClInclude Include="Source\Include\Matrix\matrix.hpp" />
+    <ClInclude Include="Source\Include\Matrix\matrix3.hpp" />
+    <ClInclude Include="Source\Include\Matrix\matrix4.hpp" />
+    <ClInclude Include="Source\Include\Matrix\squareMatrix.hpp" />
     <ClInclude Include="Source\Include\Utils\constants.hpp" />
     <ClInclude Include="Source\Include\Vector\baseVector.hpp" />
     <ClInclude Include="Source\Include\Vector\vector.hpp" />

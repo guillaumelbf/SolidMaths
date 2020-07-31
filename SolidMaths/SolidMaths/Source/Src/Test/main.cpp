@@ -4,6 +4,7 @@
 #include "../../Include/Vector/vector.hpp"
 
 #include "../../Include/Matrix/matrix.hpp"
+#include "../../Include/Matrix/matrix3.hpp"
 
 int main()
 {
@@ -32,6 +33,10 @@ int main()
 	std::cout << mat << std::endl;
 	std::cout << mat2 << std::endl;
 	std::cout << mat3 << std::endl;
+
+	sMat3<> mat_3;
+
+	std::cout << mat_3 << std::endl;
 
 
 	return 0;
