@@ -22,11 +22,16 @@ int main()
 	sMat<3, 1> mat2;
 	sMat<1, 1> mat3;
 
-	mat.at(2, 1) = 5;
+	mat.at(0, 0) = 1;
+	mat.at(0, 1) = 2;
+	mat.at(0, 2) = 3;
 
-	mat3 = mat.getMultiplied(mat2);
+	mat.transpose(mat2);
+	mat.multiply(mat2,mat3);
 
 	std::cout << mat << std::endl;
+	std::cout << mat2 << std::endl;
+	std::cout << mat3 << std::endl;
 
 
 	return 0;

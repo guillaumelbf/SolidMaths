@@ -21,6 +21,7 @@ protected:
 	using Type = TYPE;
 
 	BaseMatrix() {}
+
 public:
 
 	inline static constexpr size_t getNbRow() noexcept;
@@ -29,10 +30,10 @@ public:
 
 	inline static constexpr size_t getNbElements() noexcept;
 
-	constexpr BaseMatrix<COL, ROW, TYPE> getTransposed()const noexcept;
+	constexpr BaseMatrix<COL, ROW, TYPE>& transpose(BaseMatrix<COL, ROW, TYPE>& _transposed)const noexcept;
 
 	template<size_t OTHER_ROW, size_t OTHER_COL, typename OTHER_TYPE, std::enable_if_t<COL == OTHER_ROW,bool> = true>
-	constexpr BaseMatrix<ROW, OTHER_COL, TYPE> getMultiplied(const BaseMatrix<OTHER_ROW, OTHER_COL, OTHER_TYPE>& _mat)const noexcept;
+	constexpr BaseMatrix<ROW, OTHER_COL, TYPE>& multiply(const BaseMatrix<OTHER_ROW, OTHER_COL, OTHER_TYPE>& _mat, BaseMatrix<ROW, OTHER_COL, TYPE>& _multiplied)const noexcept;
 
 	constexpr Type at(const size_t _row, const size_t _col) const noexcept;
 
