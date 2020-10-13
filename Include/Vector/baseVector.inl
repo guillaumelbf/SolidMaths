@@ -1,7 +1,7 @@
 #include "baseVector.hpp"
 
-#define BASE_VECTOR_TEMPLATE template<class CHILD, size_t DIM, typename TYPE> 
-#define BASE_VECTOR BaseVector<CHILD,DIM,TYPE>
+#define BASE_VECTOR_TEMPLATE template<size_t DIM, typename TYPE>
+#define BASE_VECTOR BaseVector<DIM,TYPE>
 
 #pragma region Static Methods
 	BASE_VECTOR_TEMPLATE

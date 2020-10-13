@@ -31,12 +31,28 @@ constexpr VECTOR_2::sVect2(const TYPE& _value) : x(this->data[0]), y(this->data[
 }
 
 VECTOR_2_TEMPLATE
+constexpr VECTOR_2::sVect2(const BaseVector<2, TYPE>& _copy) : x(this->data[0]), y(this->data[1])
+{
+    x = _copy[0];
+    y = _copy[1];
+}
+
+VECTOR_2_TEMPLATE
 constexpr VECTOR_2& VECTOR_2::operator=(const sVect2& _vect) noexcept
 {
 	x = _vect.x;
 	y = _vect.y;
 
 	return *this;
+}
+
+VECTOR_2_TEMPLATE
+constexpr VECTOR_2& VECTOR_2::operator=(const BaseVector<2, TYPE>& _copy) noexcept
+{
+    x = _copy[0];
+    y = _copy[1];
+
+    return *this;
 }
 
 #undef VECTOR_2_TEMPLATE

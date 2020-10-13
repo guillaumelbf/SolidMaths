@@ -37,12 +37,32 @@ constexpr VECTOR_4::sVect4(const TYPE& _value) : x(this->data[0]), y(this->data[
 }
 
 VECTOR_4_TEMPLATE
+constexpr VECTOR_4::sVect4(const BaseVector<4, TYPE>& _copy) : x(this->data[0]), y(this->data[1]), z(this->data[2])
+{
+    x = _copy[0];
+    y = _copy[1];
+    z = _copy[2];
+    w = _copy[3];
+}
+
+VECTOR_4_TEMPLATE
 constexpr VECTOR_4& VECTOR_4::operator=(const sVect4& _vect) noexcept
 {
 	x = _vect.x;
 	y = _vect.y;
 	z = _vect.z;
 	w = _vect.w;
+}
+
+VECTOR_4_TEMPLATE
+constexpr VECTOR_4& VECTOR_4::operator=(const BaseVector<4, TYPE>& _copy) noexcept
+{
+    x = _copy[0];
+    y = _copy[1];
+    z = _copy[2];
+    w = _copy[3];
+
+    return *this;
 }
 
 #undef VECTOR_4_TEMPLATE

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 /**
  * @brief Base class for vector with N dimension. Musn't be instancied, but only inherited.
  *
@@ -7,13 +9,13 @@
  * @tparam DIM Number of dimension.
  * @tparam TYPE Type of value stored. Default = float.
 */
-template <class CHILD, size_t DIM, typename TYPE = float> 
+template <size_t DIM, typename TYPE = float>
 class BaseVector
 {
 protected:
-	std::array<TYPE, DIM> data = {};
+    std::array<TYPE, DIM> data = {};
 
-	using SelfType = BaseVector<CHILD, DIM, TYPE>;
+    using SelfType = BaseVector<DIM, TYPE>;
 	using Type = TYPE;
 
 	BaseVector() {}
