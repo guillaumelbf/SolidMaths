@@ -17,6 +17,8 @@ public:
 	constexpr sVect4(const TYPE& _value);
     constexpr sVect4(const BaseVector<4, TYPE>& _copy);
 
+    virtual std::string toString() const noexcept final;
+
 	constexpr sVect4& operator=(const sVect4& _vect) noexcept;
     constexpr sVect4& operator=(const BaseVector<4, TYPE>& _copy) noexcept;
 };

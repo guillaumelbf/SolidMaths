@@ -46,6 +46,16 @@ constexpr VECTOR_4::sVect4(const BaseVector<4, TYPE>& _copy) : x(this->data[0]),
 }
 
 VECTOR_4_TEMPLATE
+std::string VECTOR_4::toString() const noexcept
+{
+    std::string result;
+
+    result = "x: " + std::to_string(x) + ", y: " + std::to_string(y) + ", z: " + std::to_string(z) + ", w: " + std::to_string(w);
+
+    return  result;
+}
+
+VECTOR_4_TEMPLATE
 constexpr VECTOR_4& VECTOR_4::operator=(const sVect4& _vect) noexcept
 {
 	x = _vect.x;

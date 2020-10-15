@@ -1,5 +1,9 @@
 #include "baseVector.hpp"
 
+#include <string>
+
+#include "../Utils/numerics.hpp"
+
 #define BASE_VECTOR_TEMPLATE template<size_t DIM, typename TYPE>
 #define BASE_VECTOR BaseVector<DIM,TYPE>
 
@@ -7,8 +11,19 @@
 	BASE_VECTOR_TEMPLATE
 	constexpr BASE_VECTOR BASE_VECTOR::lerp(const BASE_VECTOR& _vect1, const BASE_VECTOR& _vect2, float _ratio) noexcept
 	{
-		return _vect1 + _ratio * (_vect2 - _vect1);
+		return _vect1 + (_vect2 - _vect1) * _ratio;
 	}
+
+	BASE_VECTOR_TEMPLATE
+	constexpr BASE_VECTOR BASE_VECTOR::slerp(const BASE_VECTOR& _vect1, const BASE_VECTOR& _vect2, float _ratio) noexcept
+    {
+        const TYPE dotRes = clamp(dot(_vect1, _vect2),-1.0f,1.f);
+        const TYPE theta = acos(dotRes) * _ratio;
+
+        BaseVector rVect = (_vect2 - _vect1 * dotRes).getNormalized();
+
+        return ((_vect1 * cos(theta)) + rVect * sin(theta));
+    }
 
 	BASE_VECTOR_TEMPLATE
 	constexpr BASE_VECTOR BASE_VECTOR::cross(const BASE_VECTOR& _vect1, const BASE_VECTOR& _vect2) noexcept
@@ -169,6 +184,20 @@
 
 		return result;
 	}
+
+	BASE_VECTOR_TEMPLATE
+	std::string BASE_VECTOR::toString() const noexcept
+    {
+        std::string result;
+        for (size_t i = 0; i < DIM; i++)
+        {
+            result += std::to_string(i) + ':';
+            result += std::to_string(data.at(i));
+            if(i != DIM-1){result += ',';}
+        }
+
+        return  result;
+    }
 #pragma endregion
 
 #pragma region Operator

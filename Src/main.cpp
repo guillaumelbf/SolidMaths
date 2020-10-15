@@ -1,7 +1,12 @@
+//TODO: Doxygene every function
+//TODO: Matrix
+//TODO: Quaternion
 #include <iostream>
 
 #include "../Include/Vector/vector.hpp"
 #include "../Include/Vector/vector2.hpp"
+#include "../Include/Vector/vector3.hpp"
+#include "../Include/Vector/vector4.hpp"
 
 int main()
 {
@@ -12,11 +17,18 @@ int main()
 
 	sVect2 normalizedVect;
 
-	normalizedVect = vect2_1.normalize();
+	normalizedVect = vect2_1.getNormalized();
 
-	std::cout << normalizedVect.x << "," << normalizedVect.y << std::endl;
+	std::cout << normalizedVect << std::endl;
 
-	std::cout << vect2_1.x << "," << vect2_1.y << std::endl;
+	std::cout << vect2_1 << std::endl;
 
-	return 0;
+	sVect2<> vect1(1,2);
+	sVect4<> vect2(1,2,3,4);
+
+	//sVect2 test = sVect2<>::lerp(vect1, vect2,0.5);
+
+	std::cout << vect2.toString() << std::endl;
+
+    return 0;
 }

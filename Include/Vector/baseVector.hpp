@@ -24,6 +24,8 @@ public:
 #pragma region Static Methods
 	static constexpr SelfType lerp(const SelfType& _vect1, const SelfType& _vect2, float _ratio) noexcept;
 
+	static constexpr SelfType slerp(const SelfType& _vect1, const SelfType& _vect2, float _ratio) noexcept;
+
 	static constexpr SelfType cross(const SelfType& _vect1, const SelfType& _vect2) noexcept;
 
 	static constexpr Type dot(const SelfType& _vect1, const SelfType& _vect2) noexcept;
@@ -60,6 +62,8 @@ public:
 	constexpr Type dot(const SelfType& _vect) const noexcept;
 
 	constexpr SelfType cross(const SelfType& _vect) const noexcept;
+
+	virtual std::string toString() const noexcept;
 
 #pragma endregion
 
@@ -111,3 +115,16 @@ public:
 };
 
 #include "baseVector.inl"
+
+template <size_t DIM, typename TYPE = float>
+std::ostream & operator<<(std::ostream & inout_stream, BaseVector<DIM, TYPE> const& _vect)
+{
+    inout_stream << '[';
+    for (size_t i = 0; i < DIM; i++)
+    {
+        inout_stream << _vect[i];
+        if(i != DIM-1){inout_stream << ',';}
+    }
+    inout_stream << ']';
+    return inout_stream;
+}
