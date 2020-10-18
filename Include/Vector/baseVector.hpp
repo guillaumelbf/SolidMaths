@@ -49,46 +49,121 @@ public:
 	static constexpr SelfType cross(const SelfType& _vect1, const SelfType& _vect2) noexcept;
 
 	/**
-	 * @brief Dot product 
-	 * @param _vect1
-	 * @param _vect2
-	 * @return
+	 * @brief Dot product between 2 vector
+	 * @param _vect1 First vector
+	 * @param _vect2 Second vector
+	 * @return the value result computed
 	 */
 	static constexpr Type dot(const SelfType& _vect1, const SelfType& _vect2) noexcept;
 #pragma endregion
 
 #pragma region Methods
 
+	/**
+	 * @brief Compute the square root of the lenght of the vector
+	 * @return the value computed
+	 */
 	constexpr Type sqrtLength() const noexcept;
 
+	/**
+	 * @brief Compute the lenght of the vector
+	 * @return the value computed
+	 */
 	constexpr Type length() const noexcept;
 
+	/**
+	 * @brief Normalize the vector and return himself
+	 * @return himself normalized
+	 */
 	constexpr SelfType& normalize() noexcept;
 
+	/**
+	 * @brief Compute normalized vector and return it
+	 * @return return new normalized vector
+	 */
 	constexpr SelfType getNormalized() const noexcept;
 
+	/**
+	 * @brief Add vector with param vector
+	 * @param _vect the vector to add
+	 * @return himself computed
+	 */
 	constexpr SelfType& add(const SelfType& _vect) noexcept;
 
+	/**
+	 * @brief Substract vector with param vector
+	 * @param _vect the vector to substract
+	 * @return himself computed
+	 */
 	constexpr SelfType& subtract(const SelfType& _vect) noexcept;
-	
+
+	/**
+	 * @brief Multiply vector with param vector
+	 * @param _vect the vector to multiply
+	 * @return himself computed
+	 */
 	constexpr SelfType& multiply(const SelfType& _vect) noexcept;
 
+	/**
+	 * @brief Divide vector with param vector
+	 * @param _vect the vector to devide
+	 * @return himself computed
+	 */
 	constexpr SelfType& divide(const SelfType& _vect) noexcept;
 
+	/**
+	 * @brief Add vector with param vector
+	 * @param _vect the vector to add
+	 * @return himself computed
+	 */
 	constexpr SelfType& add(const Type& _value) noexcept;
-	
+
+	/**
+	 * @brief Substract vector with param vector
+	 * @param _vect the vector to substract
+	 * @return himself computed
+	 */
 	constexpr SelfType& subtract(const Type& _value) noexcept;
-	
+
+	/**
+	 * @brief Multiply vector with param vector
+	 * @param _vect the vector to multiply
+	 * @return himself computed
+	 */
 	constexpr SelfType& multiply(const Type& _value) noexcept;
-	
+
+	/**
+	 * @brief Divide vector with param vector
+	 * @param _vect the vector to devide
+	 * @return himself computed
+	 */
 	constexpr SelfType& divide(const Type& _value) noexcept;
 
+	/**
+	 * @brief Return if vector is equals with param vector
+	 * @param _vect the vector to compare
+	 * @return true if equals false instead
+	 */
 	constexpr bool isEquals(const SelfType& _vect) const noexcept;
 
+	/**
+	 * @brief Dot product the vector with param vector
+	 * @param _vect the vector to dot
+	 * @return value computed
+	 */
 	constexpr Type dot(const SelfType& _vect) const noexcept;
 
+	/**
+	 * @brief Cross product the vector with param vector
+	 * @param _vect the vector to cross
+	 * @return value computed
+	 */
 	constexpr SelfType cross(const SelfType& _vect) const noexcept;
 
+	/**
+	 * @brief Put value of the vector in string
+	 * @return the string with value formatted
+	 */
 	virtual std::string toString() const noexcept;
 
 #pragma endregion
