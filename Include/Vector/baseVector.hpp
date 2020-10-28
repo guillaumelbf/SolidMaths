@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <ostream>
 
 /**
  * @brief Base class for vector with N dimension. Musn't be instancied, but only inherited.

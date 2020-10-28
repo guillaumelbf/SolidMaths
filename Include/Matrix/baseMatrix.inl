@@ -24,27 +24,31 @@ inline constexpr size_t BASE_MATRIX::getNbElements() noexcept
 }
 
 BASE_MATRIX_TEMPLATE
-constexpr BaseMatrix<COL, ROW, TYPE>& BASE_MATRIX::transpose(BaseMatrix<COL, ROW, TYPE>& _transposed)const noexcept
+inline constexpr BaseMatrix<COL, ROW, TYPE> BASE_MATRIX::getTransposed(const SelfType& _mat) noexcept
 {
-	for (size_t i = 0; i < getNbElements(); i++)
-		_transposed[i] = data[i];
+    BaseMatrix<COL, ROW, TYPE> transposed;
 
-	return _transposed;
+    for (size_t i = 0 ; i < _mat.getNbElements() ; i++)
+        transposed.at(i) = _mat.data[i];
+
+    return transposed;
 }
 
 BASE_MATRIX_TEMPLATE
-template<size_t OTHER_ROW, size_t OTHER_COL, typename OTHER_TYPE, std::enable_if_t<COL == OTHER_ROW,bool>>
-constexpr BaseMatrix<ROW, OTHER_COL, TYPE>& BASE_MATRIX::multiply(const BaseMatrix<OTHER_ROW, OTHER_COL, OTHER_TYPE>& _mat, BaseMatrix<ROW, OTHER_COL, TYPE>& _multiplied)const noexcept
+template<size_t OTHER_ROW, size_t OTHER_COL, std::enable_if_t<COL == OTHER_ROW,bool>>
+inline constexpr BaseMatrix<ROW, OTHER_COL, TYPE> BASE_MATRIX::getMultiplied(const BASE_MATRIX& _mat1,const BaseMatrix<OTHER_ROW, OTHER_COL, TYPE>& _mat2) noexcept
 {
-	for (size_t i = 0; i < _multiplied.getNbElements(); i++)
+    BaseMatrix<ROW, OTHER_COL, TYPE> multiplied;
+
+	for (size_t i = 0; i < multiplied.getNbElements(); i++)
 	{
 		for (size_t j = 0; j < COL; j++)
 		{
-			_multiplied[i] = (_multiplied[i] + at(i % _multiplied.getNbColumn(), j) * _mat.at(j, (int)i / _mat.getNbColumn()));
+			multiplied.at(i) = multiplied.at(i) + _mat1.at(i % multiplied.getNbColumn(), j) * _mat2.at(j, (int)i / _mat2.getNbColumn());
 		}
 	}
 
-	return _multiplied;
+	return multiplied;
 }
 
 BASE_MATRIX_TEMPLATE
@@ -54,21 +58,27 @@ constexpr TYPE BASE_MATRIX::at(const size_t _row, const size_t _col) const noexc
 }
 
 BASE_MATRIX_TEMPLATE
+constexpr TYPE BASE_MATRIX::at(const size_t _index) const noexcept
+{
+    return at(_index/COL,_index%COL);
+}
+
+BASE_MATRIX_TEMPLATE
 constexpr TYPE& BASE_MATRIX::at(const size_t _row, const size_t _col) noexcept
 {
 	return data[ROW * _col + _row];
 }
 
 BASE_MATRIX_TEMPLATE
-constexpr TYPE BASE_MATRIX::operator[](const size_t _index) const noexcept
+constexpr TYPE& BASE_MATRIX::at(const size_t _index) noexcept
 {
-	return data[_index];
+    return at(_index/COL,_index%COL);
 }
 
 BASE_MATRIX_TEMPLATE
-constexpr TYPE& BASE_MATRIX::operator[](const size_t _index) noexcept
+constexpr TYPE* BASE_MATRIX::getData() const noexcept
 {
-	return data[_index];
+    return data.data();
 }
 
 #undef BASE_MATRIX_TEMPLATE

@@ -3,32 +3,42 @@
 //TODO: Quaternion
 #include <iostream>
 
-#include "../Include/Vector/vector.hpp"
-#include "../Include/Vector/vector2.hpp"
-#include "../Include/Vector/vector3.hpp"
-#include "../Include/Vector/vector4.hpp"
+#include "../Include/Matrix/matrix.hpp"
+#include "../Include/Matrix/matrix3.hpp"
+#include "../Include/Matrix/matrix4.hpp"
 
 int main()
 {
-	sVect2<> vect2_0(1, 3);
-	sVect2<> vect2_1;
+	sMat<2,3> mat;
 
-	vect2_1 = vect2_0;
+	mat.at(0,0) = 1;
+    mat.at(0,1) = 2;
+    mat.at(0,2) = 3;
+    mat.at(1,0) = 4;
+    mat.at(1,1) = 5;
+    mat.at(1,2) = 6;
 
-	sVect2 normalizedVect;
+    sMat<3,2> mat2 = sMat<2,3>::getTransposed(mat);
 
-	normalizedVect = vect2_1.getNormalized();
+    std::cout << mat << std::endl;
+    std::cout << mat2 << std::endl;
 
-	std::cout << normalizedVect << std::endl;
+    sMat<2,2> mat3 = sMat<2,3>::getMultiplied<3,2>(mat,mat2);
 
-	std::cout << vect2_1 << std::endl;
+    std::cout << mat3 << std::endl;
 
-	sVect2<> vect1(1,2);
-	sVect4<> vect2(1,2,3,4);
+    //sSquareMat<4> mat4 = sSquareMat<4>::identity();
+    sMat3<> mat4;
 
-	//sVect2 test = sVect2<>::lerp(vect1, vect2,0.5);
+    mat4 = sMat3<>::identity();
 
-	std::cout << vect2.toString() << std::endl;
+    std::cout << mat4 << std::endl;
+
+    sMat4 mat5(1);
+
+    mat5.at(5) = 42;
+
+    std::cout << mat5 << std::endl;
 
     return 0;
 }
