@@ -26,7 +26,7 @@ constexpr BASE_MATRIX::sMat(const BaseMatrix<ROW,COL,TYPE>& _copy)
 BASE_MATRIX_TEMPLATE
 constexpr BASE_MATRIX& BASE_MATRIX::operator=(const sMat& _mat) noexcept
 {
-    for (int i = 0; i < _copy.getNbElements() ; ++i)
+    for (int i = 0; i < _mat.getNbElements() ; ++i)
         this->at(i) = _mat.at(i);
 
     return *this;

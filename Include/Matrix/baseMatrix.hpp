@@ -60,6 +60,15 @@ public:
 	 */
 	template<size_t OTHER_ROW, size_t OTHER_COL, std::enable_if_t<COL == OTHER_ROW,bool> = true>
 	inline static constexpr BaseMatrix<ROW, OTHER_COL, TYPE> getMultiplied(const SelfType& _mat1,const BaseMatrix<OTHER_ROW, OTHER_COL, TYPE>& _mat2) noexcept;
+
+	/**
+	 * @brief Return a sub-matrix of the main matrix
+	 * @param _mat The main matrix
+	 * @param _excludedRow Row to exclude
+	 * @param _excludedCol Col to exclude
+	 * @return the sub-matrix
+	 */
+	inline static constexpr BaseMatrix<ROW-1,COL-1> getSubMatrix(const SelfType& _mat,const size_t _excludedRow, const size_t _excludedCol) noexcept;
 #pragma endregion
 
 #pragma region Methods

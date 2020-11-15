@@ -6,12 +6,18 @@
 #include "../Include/Matrix/matrix.hpp"
 #include "../Include/Matrix/matrix3.hpp"
 #include "../Include/Matrix/matrix4.hpp"
+#include "../Include/Matrix/squareMatrix.hpp"
 
-int main()
+void vectorTest()
 {
-	sMat<2,3> mat;
 
-	mat.at(0,0) = 1;
+}
+
+void matrixTest()
+{
+    sMat<2,3> mat;
+
+    mat.at(0,0) = 1;
     mat.at(0,1) = 2;
     mat.at(0,2) = 3;
     mat.at(1,0) = 4;
@@ -39,6 +45,40 @@ int main()
     mat5.at(5) = 42;
 
     std::cout << mat5 << std::endl;
+}
+
+void squareMatrixTest()
+{
+    sSquareMat<3> mat;
+
+    mat.at(0) = 1;
+    mat.at(1) = 2;
+    mat.at(2) = 3;
+    mat.at(3) = 4;
+    mat.at(4) = 5;
+    mat.at(5) = 6;
+    mat.at(6) = 7;
+    mat.at(7) = 8;
+    mat.at(8) = 9;
+
+    sSquareMat<3> mat2 = mat;
+
+    std::cout << mat << std::endl;
+
+    mat.transpose();
+
+    std::cout << mat << std::endl;
+
+    mat2.at(4) = 0;
+
+    std::cout << mat2.getInverted() << std::endl;
+}
+
+int main()
+{
+
+    //matrixTest();
+    squareMatrixTest();
 
     return 0;
 }

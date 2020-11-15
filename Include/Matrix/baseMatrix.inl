@@ -52,6 +52,28 @@ inline constexpr BaseMatrix<ROW, OTHER_COL, TYPE> BASE_MATRIX::getMultiplied(con
 }
 
 BASE_MATRIX_TEMPLATE
+inline constexpr BaseMatrix<ROW-1,COL-1> BASE_MATRIX::getSubMatrix(const SelfType& _mat,const size_t _excludedRow, const size_t _excludedCol) noexcept
+{
+    BaseMatrix<ROW-1,COL-1> subMatrix;
+
+    size_t index = 0;
+    for(size_t i = 0 ; i < ROW; i++)
+    {
+        if(i == _excludedRow)
+            continue;
+        for (size_t j = 0; j < COL; ++j)
+        {
+            if(j == _excludedCol)
+                continue;
+            subMatrix.at(index) = _mat.at(i,j);
+            index++;
+        }
+    }
+
+    return subMatrix;
+}
+
+BASE_MATRIX_TEMPLATE
 constexpr TYPE BASE_MATRIX::at(const size_t _row, const size_t _col) const noexcept
 {
 	return data[ROW * _col + _row];
