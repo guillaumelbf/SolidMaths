@@ -7,6 +7,7 @@
 #include "../Include/Matrix/matrix3.hpp"
 #include "../Include/Matrix/matrix4.hpp"
 #include "../Include/Matrix/squareMatrix.hpp"
+#include "../Include/Quaternion/quaternion.hpp"
 
 void vectorTest()
 {
@@ -74,11 +75,24 @@ void squareMatrixTest()
     std::cout << mat2.getInverted() << std::endl;
 }
 
+void quaternionTest()
+{
+    sQuaternion quat(1.f,0.1f,0.2f,0.3f);
+    sQuaternion quat2(1.f,0.4f,0.4f,0.4f);
+
+    std::cout << quat << std::endl;
+
+    quat.lerp(quat2,0.5f);
+
+    std::cout << quat << std::endl;
+}
+
 int main()
 {
 
     //matrixTest();
-    squareMatrixTest();
+    //squareMatrixTest();
+    quaternionTest();
 
     return 0;
 }

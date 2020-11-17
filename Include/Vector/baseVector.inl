@@ -98,7 +98,7 @@
 	constexpr BASE_VECTOR& BASE_VECTOR::multiply(const BASE_VECTOR& _vect) noexcept
 	{
 		for (size_t i = 0; i < DIM; i++)
-			this->data[i] -= _vect[i];
+			this->data[i] *= _vect[i];
 
 		return *this;
 	}
