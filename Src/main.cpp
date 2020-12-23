@@ -1,13 +1,15 @@
 //TODO: Doxygene every function
-//TODO: Matrix
-//TODO: Quaternion
+//TODO: Verify Matrix
 #include <iostream>
 
-#include "../Include/Matrix/matrix.hpp"
-#include "../Include/Matrix/matrix3.hpp"
-#include "../Include/Matrix/matrix4.hpp"
-#include "../Include/Matrix/squareMatrix.hpp"
-#include "../Include/Quaternion/quaternion.hpp"
+#include <array>
+
+#include "Vector/vector4.hpp"
+#include "Matrix/matrix.hpp"
+#include "Matrix/matrix3.hpp"
+#include "Matrix/matrix4.hpp"
+#include "Matrix/squareMatrix.hpp"
+#include "Quaternion/quaternion.hpp"
 
 void vectorTest()
 {
@@ -16,14 +18,7 @@ void vectorTest()
 
 void matrixTest()
 {
-    sMat<2,3> mat;
-
-    mat.at(0,0) = 1;
-    mat.at(0,1) = 2;
-    mat.at(0,2) = 3;
-    mat.at(1,0) = 4;
-    mat.at(1,1) = 5;
-    mat.at(1,2) = 6;
+    sMat<2,3,float> mat(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
 
     sMat<3,2> mat2 = sMat<2,3>::getTransposed(mat);
 
@@ -46,25 +41,40 @@ void matrixTest()
     mat5.at(5) = 42;
 
     std::cout << mat5 << std::endl;
+
+    sMat<2,3> add(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
+
+    std::cout << sMat<2,3>::getAdd(add,add) << std::endl;
+
+    sMat<2,3> sub1(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
+    sMat<2,3> sub2(std::array{6.f,5.f,4.f,3.f,2.f,1.f});
+
+    std::cout << sMat<2,3>::getSubtract(sub1,sub2) << std::endl;
 }
 
 void squareMatrixTest()
 {
     sSquareMat<3> mat;
 
-    mat.at(0) = 1;
-    mat.at(1) = 2;
-    mat.at(2) = 3;
-    mat.at(3) = 4;
-    mat.at(4) = 5;
-    mat.at(5) = 6;
-    mat.at(6) = 7;
-    mat.at(7) = 8;
-    mat.at(8) = 9;
+    for (int i = 0; i < mat.getNbElements(); ++i)
+        mat.at(i) = i+1;
 
     sSquareMat<3> mat2 = mat;
+    sSquareMat<3> mat3;
+    for (int i = 0; i < mat.getNbElements(); ++i)
+        mat3.at(i) = mat.at((mat.getNbElements()-i)-1);
+
+    sMat4 mat4;
+    for (int i = 0; i < mat4.getNbElements(); ++i)
+        mat4.at(i) = i+1;
+    sVect4 vect4;
+    for (int i = 0; i < 4; ++i)
+        vect4[i] = i+1;
 
     std::cout << mat << std::endl;
+    std::cout << mat3 << std::endl;
+
+    std::cout << sSquareMat<3>::getMultiplied(mat,mat3) << std::endl;
 
     mat.transpose();
 
@@ -73,6 +83,11 @@ void squareMatrixTest()
     mat2.at(4) = 0;
 
     std::cout << mat2.getInverted() << std::endl;
+
+    std::cout << "Mat4: \n" << mat4 << std::endl;
+    std::cout << "Vect4: \n" << vect4 << std::endl;
+
+    std::cout << "Mat4 * Vect4: \n" << sMat4<>::getMultiplied(mat4,vect4) << std::endl;
 }
 
 void quaternionTest()
@@ -90,9 +105,9 @@ void quaternionTest()
 int main()
 {
 
-    //matrixTest();
+    matrixTest();
     //squareMatrixTest();
-    quaternionTest();
+    //quaternionTest();
 
     return 0;
 }

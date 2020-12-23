@@ -15,14 +15,18 @@ template <size_t ROW, size_t COL, typename TYPE = float>
 class BaseMatrix
 {
 protected:
-	std::array<TYPE, ROW * COL> data = {};
-	
 	using SelfType = BaseMatrix<ROW, COL, TYPE>;
 	using Type = TYPE;
 
-public:
+	std::array<TYPE, ROW* COL> data = {};
 
-    BaseMatrix() = default;
+public:
+#pragma region Constructor
+
+    constexpr BaseMatrix() = default;
+    constexpr BaseMatrix(const std::array<TYPE,ROW*COL>& _numbers);
+
+#pragma endregion
 
 #pragma region Static methods
     /**
@@ -51,12 +55,28 @@ public:
 	inline static constexpr BaseMatrix<COL, ROW, TYPE> getTransposed(const SelfType& _mat) noexcept;
 
 	/**
+	 * @brief Return added matrix
+	 * @param _mat1 First matrix to add
+	 * @param _mat2 First matrix to add with
+	 * @return the computed matrix
+	 */
+	inline static constexpr SelfType getAdd(const SelfType& _mat1, const SelfType& _mat2) noexcept;
+
+	/**
+	 * @brief Return subtracted matrix
+	 * @param _mat1 First matrix to subtract
+	 * @param _mat2 Second matrix to subtract with
+	 * @return the computed matrix
+	 */
+	inline static constexpr SelfType getSubtract(const SelfType& _mat1, const SelfType& _mat2) noexcept;
+
+	/**
 	 * @brief Return multiplied matrix
 	 * @tparam OTHER_ROW Number of row of the second matrix
 	 * @tparam OTHER_COL Number of column of the second matrix
 	 * @param _mat1 First matrix to multiply
 	 * @param _mat2 Second matrix to multiply with
-	 * @return matrix multiplied
+	 * @return the computed matrix
 	 */
 	template<size_t OTHER_ROW, size_t OTHER_COL, std::enable_if_t<COL == OTHER_ROW,bool> = true>
 	inline static constexpr BaseMatrix<ROW, OTHER_COL, TYPE> getMultiplied(const SelfType& _mat1,const BaseMatrix<OTHER_ROW, OTHER_COL, TYPE>& _mat2) noexcept;
@@ -72,6 +92,21 @@ public:
 #pragma endregion
 
 #pragma region Methods
+
+	/**
+	 * @brief Add self with given matrix
+	 * @param _mat The matrix to add
+	 * @return self
+	 */
+	constexpr SelfType& add(const SelfType& _mat) noexcept;
+
+	/**
+	 * @brief Subtract self with given matrix
+	 * @param _mat The matrix to subtract
+	 * @return self
+	 */
+	constexpr SelfType& substract(const SelfType& _mat) noexcept;
+
 	/**
 	 * @brief Return the value of the matrix in row and column
 	 * @param _row The row of matrix
@@ -100,10 +135,26 @@ public:
 	constexpr Type& at(const size_t _index) noexcept;
 
 	/**
+	 * @brief Return the data stored in memory at specified index
+	 * @param _index The index of value in memory
+	 * @return the corresponding value
+	 */
+	constexpr Type& getData(const size_t _index) noexcept;
+
+	/**
 	 * @brief Return the pointer of the first data of the matrix
 	 * @return the pointer of the first data of the matrix
 	 */
-	constexpr Type* getData() const noexcept;
+	constexpr Type* getData() noexcept;
+
+#pragma endregion
+
+#pragma region Operator
+
+	constexpr SelfType operator+(const SelfType& _mat)const noexcept;
+	constexpr SelfType operator-(const SelfType& _mat)const noexcept;
+	constexpr SelfType& operator+=(const SelfType& _mat)noexcept;
+	constexpr SelfType& operator-=(const SelfType& _mat)noexcept;
 
 #pragma endregion
 };

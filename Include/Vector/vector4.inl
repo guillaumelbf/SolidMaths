@@ -62,6 +62,8 @@ constexpr VECTOR_4& VECTOR_4::operator=(const sVect4& _vect) noexcept
 	y = _vect.y;
 	z = _vect.z;
 	w = _vect.w;
+
+	return *this;
 }
 
 VECTOR_4_TEMPLATE

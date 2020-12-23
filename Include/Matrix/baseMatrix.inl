@@ -5,6 +5,19 @@
 #define BASE_MATRIX_TEMPLATE template<size_t ROW, size_t COL, typename TYPE>
 #define BASE_MATRIX BaseMatrix<ROW, COL, TYPE>
 
+#pragma region Constructor
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX::BaseMatrix(const std::array<TYPE,ROW*COL>& _numbers)
+{
+    for (int i = 0; i < getNbElements(); ++i)
+        this->at(i) = _numbers.at(i);
+}
+
+#pragma endregion
+
+#pragma region Static methods
+
 BASE_MATRIX_TEMPLATE
 inline constexpr size_t BASE_MATRIX::getNbRow() noexcept
 {
@@ -35,6 +48,28 @@ inline constexpr BaseMatrix<COL, ROW, TYPE> BASE_MATRIX::getTransposed(const Sel
 }
 
 BASE_MATRIX_TEMPLATE
+inline constexpr BASE_MATRIX BASE_MATRIX::getAdd(const BASE_MATRIX& _mat1, const BASE_MATRIX& _mat2) noexcept
+{
+    BaseMatrix added;
+
+    for (size_t i = 0 ; i < added.getNbElements() ; i++)
+        added.at(i) = _mat1.at(i) + _mat2.at(i);
+
+    return added;
+}
+
+BASE_MATRIX_TEMPLATE
+inline constexpr BASE_MATRIX BASE_MATRIX::getSubtract(const BASE_MATRIX& _mat1, const BASE_MATRIX& _mat2) noexcept
+{
+    BaseMatrix subtract;
+
+    for (size_t i = 0 ; i < subtract.getNbElements() ; i++)
+        subtract.at(i) = _mat1.at(i) - _mat2.at(i);
+
+    return subtract;
+}
+
+BASE_MATRIX_TEMPLATE
 template<size_t OTHER_ROW, size_t OTHER_COL, std::enable_if_t<COL == OTHER_ROW,bool>>
 inline constexpr BaseMatrix<ROW, OTHER_COL, TYPE> BASE_MATRIX::getMultiplied(const BASE_MATRIX& _mat1,const BaseMatrix<OTHER_ROW, OTHER_COL, TYPE>& _mat2) noexcept
 {
@@ -44,7 +79,7 @@ inline constexpr BaseMatrix<ROW, OTHER_COL, TYPE> BASE_MATRIX::getMultiplied(con
 	{
 		for (size_t j = 0; j < COL; j++)
 		{
-			multiplied.at(i) = multiplied.at(i) + _mat1.at(i % multiplied.getNbColumn(), j) * _mat2.at(j, (int)i / _mat2.getNbColumn());
+			multiplied.getData(i) += _mat1.at(i % multiplied.getNbColumn(), j) * _mat2.at(j, (int)i / _mat2.getNbColumn());
 		}
 	}
 
@@ -73,6 +108,26 @@ inline constexpr BaseMatrix<ROW-1,COL-1> BASE_MATRIX::getSubMatrix(const SelfTyp
     return subMatrix;
 }
 
+#pragma endregion
+
+#pragma region Methods
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX& BASE_MATRIX::add(const SelfType& _mat) noexcept
+{
+    *this = BaseMatrix::getAdd(*this,_mat);
+
+    return *this;
+}
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX& BASE_MATRIX::substract(const SelfType& _mat) noexcept
+{
+    *this = BaseMatrix::getSubtract(*this,_mat);
+
+    return *this;
+}
+
 BASE_MATRIX_TEMPLATE
 constexpr TYPE BASE_MATRIX::at(const size_t _row, const size_t _col) const noexcept
 {
@@ -98,10 +153,46 @@ constexpr TYPE& BASE_MATRIX::at(const size_t _index) noexcept
 }
 
 BASE_MATRIX_TEMPLATE
-constexpr TYPE* BASE_MATRIX::getData() const noexcept
+constexpr TYPE& BASE_MATRIX::getData(const size_t _index) noexcept
+{
+    return data[_index];
+}
+
+BASE_MATRIX_TEMPLATE
+constexpr TYPE* BASE_MATRIX::getData() noexcept
 {
     return data.data();
 }
+
+#pragma endregion
+
+#pragma region Operator
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX BASE_MATRIX::operator+(const SelfType& _mat)const noexcept
+{
+    return BaseMatrix::getAdd(*this,_mat);
+}
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX BASE_MATRIX::operator-(const SelfType& _mat)const noexcept
+{
+    return BaseMatrix::getSubtract(*this,_mat);
+}
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX& BASE_MATRIX::operator+=(const SelfType& _mat)noexcept
+{
+    return this->add(_mat);
+}
+
+BASE_MATRIX_TEMPLATE
+constexpr BASE_MATRIX& BASE_MATRIX::operator-=(const SelfType& _mat)noexcept
+{
+    return this->substract(_mat);
+}
+
+#pragma endregion
 
 #undef BASE_MATRIX_TEMPLATE
 #undef BASE_MATRIX

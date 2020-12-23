@@ -1,8 +1,11 @@
 #include "squareMatrix.hpp"
 
+#include <cmath>
+
 #define SQUARE_MATRIX_TEMPLATE template<size_t SIZE, typename TYPE>
 #define SQUARE_MATRIX sSquareMat<SIZE,TYPE>
 
+#pragma region Constructor
 SQUARE_MATRIX_TEMPLATE
 constexpr SQUARE_MATRIX::sSquareMat(const sSquareMat& _copy)
 {
@@ -23,8 +26,12 @@ constexpr SQUARE_MATRIX::sSquareMat(const BaseMatrix<SIZE,SIZE,TYPE>& _copy)
         this->at(i) = _copy.at(i);
 }
 
+#pragma endregion
+
+#pragma region Static methods
+
 SQUARE_MATRIX_TEMPLATE
-constexpr SQUARE_MATRIX SQUARE_MATRIX::identity()
+constexpr SQUARE_MATRIX SQUARE_MATRIX::identity() noexcept
 {
     sSquareMat identityMat;
 
@@ -35,10 +42,43 @@ constexpr SQUARE_MATRIX SQUARE_MATRIX::identity()
 }
 
 SQUARE_MATRIX_TEMPLATE
+constexpr SQUARE_MATRIX SQUARE_MATRIX::getMultiplied(const SelfType& _mat1, const SelfType& _mat2) noexcept
+{
+    return BaseMatrix<SIZE,SIZE,TYPE>::getMultiplied<SIZE,SIZE>(_mat1,_mat2);
+}
+
+SQUARE_MATRIX_TEMPLATE
+constexpr sVect<SIZE,TYPE> SQUARE_MATRIX::getMultiplied(const SelfType& _mat, const sVect<SIZE,TYPE>& _vect) noexcept
+{
+    sVect<SIZE,TYPE> result;
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int k = 0; k < SIZE; k++)
+        {
+            result[i] += _mat.at(i,k) * _vect[k];
+        }
+    }
+
+    return result;
+}
+
+#pragma endregion
+
+#pragma region Methods
+
+SQUARE_MATRIX_TEMPLATE
 constexpr SQUARE_MATRIX& SQUARE_MATRIX::transpose() noexcept
 {
-    *this = getTransposed(*this);
+    *this = this->getTransposed(*this);
 
+    return *this;
+}
+
+SQUARE_MATRIX_TEMPLATE
+constexpr SQUARE_MATRIX& SQUARE_MATRIX::multiply(const SelfType& _mat) noexcept
+{
+    *this = getMultiplied(*this,_mat);
     return *this;
 }
 
@@ -124,6 +164,10 @@ constexpr float SQUARE_MATRIX::determining() const noexcept
     return 0;
 }
 
+#pragma endregion
+
+#pragma region Operator
+
 SQUARE_MATRIX_TEMPLATE
 constexpr SQUARE_MATRIX& SQUARE_MATRIX::operator=(const sSquareMat& _mat) noexcept
 {
@@ -139,6 +183,20 @@ constexpr SQUARE_MATRIX& SQUARE_MATRIX::operator=(const BaseMatrix<SIZE,SIZE,TYP
 
     return *this;
 }
+
+SQUARE_MATRIX_TEMPLATE
+constexpr SQUARE_MATRIX SQUARE_MATRIX::operator*(const SQUARE_MATRIX& _mat) noexcept
+{
+    return getMultiplied(*this,_mat);
+}
+
+SQUARE_MATRIX_TEMPLATE
+constexpr sVect<SIZE,TYPE> SQUARE_MATRIX::operator*(const sVect<SIZE,TYPE>& _vect) noexcept
+{
+    return getMultiplied(*this,_vect);
+}
+
+#pragma endregion
 
 #undef SQUARE_MATRIX_TEMPLATE
 #undef SQUARE_MATRIX

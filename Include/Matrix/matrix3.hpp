@@ -7,7 +7,7 @@ class sMat3 : public sSquareMat<3, TYPE>
 {
 public:
 
-    constexpr sMat3() {};
+    constexpr sMat3() = default;
     constexpr sMat3(const sMat3& _copy);
     constexpr sMat3(const TYPE& _value);
     constexpr sMat3(const BaseMatrix<3,3,TYPE>& _copy);

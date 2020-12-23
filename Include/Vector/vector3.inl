@@ -57,6 +57,8 @@ constexpr VECTOR_3& VECTOR_3::operator=(const sVect3& _vect) noexcept
 	x = _vect.x;
 	y = _vect.y;
 	z = _vect.z;
+
+	return *this;
 }
 
 VECTOR_3_TEMPLATE

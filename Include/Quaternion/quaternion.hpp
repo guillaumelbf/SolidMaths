@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Vector/vector3.hpp"
+
 /**
  * @brief Quaternion class
  * @tparam TYPE Type of data stored
@@ -49,6 +51,12 @@ public:
      */
     constexpr sQuaternion(Type _xAxis, Type _yAxis, Type _zAxis);
 
+    /**
+     * @brief Create quaternion with euler axis (in radian)
+     * @param _vect Vector3 of euler rotation
+     */
+    constexpr sQuaternion(const sVect3<Type>& _vect);
+
 #pragma endregion
 
 #pragma region Static Methods
@@ -62,6 +70,8 @@ public:
      * @return The computed quaternion
      */
     static constexpr SelfType lerp(const SelfType& _quat1, const SelfType& _quat2, float _ratio, bool shortestPath = true) noexcept;
+
+    static constexpr SelfType nlerp(const SelfType& _quat1, const SelfType& _quat2, float _ratio, bool shortestPath = true) noexcept;
 
     /**
      * @brief Compute the spherical linear interpolation of quaternion with ratio
@@ -118,6 +128,8 @@ public:
      * @return The quaternion result
      */
     static constexpr SelfType getMultiplied(const SelfType& _quat1, const SelfType& _quat2) noexcept;
+
+    static constexpr SelfType getMultiplied(const SelfType& _quat, Type _real) noexcept;
 
 #pragma endregion
 
@@ -235,17 +247,19 @@ public:
 
     constexpr bool operator==(const SelfType& _quat) noexcept;
 
-    constexpr SelfType operator+(const SelfType& _quat) noexcept;
+    constexpr SelfType operator+(const SelfType& _quat) const noexcept;
 
-    constexpr SelfType operator-(const SelfType& _quat) noexcept;
+    constexpr SelfType operator-(const SelfType& _quat) const noexcept;
 
-    constexpr SelfType operator*(const SelfType& _quat) noexcept;
+    constexpr SelfType operator*(const SelfType& _quat) const noexcept;
 
     constexpr SelfType& operator+=(const SelfType& _quat) noexcept;
 
     constexpr SelfType& operator-=(const SelfType& _quat) noexcept;
 
     constexpr SelfType& operator*=(const SelfType& _quat) noexcept;
+
+    constexpr SelfType operator*(Type _real) const noexcept;
 
 #pragma endregion
 };
