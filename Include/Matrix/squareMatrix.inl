@@ -173,6 +173,8 @@ constexpr SQUARE_MATRIX& SQUARE_MATRIX::operator=(const sSquareMat& _mat) noexce
 {
     for (int i = 0; i < _mat.getNbElements() ; ++i)
         this->at(i) = _mat.at(i);
+
+    return *this;
 }
 
 SQUARE_MATRIX_TEMPLATE

@@ -298,22 +298,19 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::operator+=(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getAdded(*this,_quat);
-        return *this;
+        return this->add(_quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::operator-=(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getSubstract(*this,_quat);
-        return *this;
+        return this->substract(_quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::operator*=(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getMultiplied(*this,_quat);
-        return *this;
+        return this->multiply(_quat);
     }
 
     QUATERNION_TEMPLATE

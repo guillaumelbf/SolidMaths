@@ -1,6 +1,7 @@
 #include "baseMatrix.hpp"
 
 #include <cassert>
+#include <string>
 
 #define BASE_MATRIX_TEMPLATE template<size_t ROW, size_t COL, typename TYPE>
 #define BASE_MATRIX BaseMatrix<ROW, COL, TYPE>
@@ -162,6 +163,26 @@ BASE_MATRIX_TEMPLATE
 constexpr TYPE* BASE_MATRIX::getData() noexcept
 {
     return data.data();
+}
+
+BASE_MATRIX_TEMPLATE
+std::string BASE_MATRIX::toString() const noexcept
+{
+    std::string result;
+
+    for (size_t i = 0ull; i < ROW; i++)
+    {
+        result += '[';
+        for (size_t j = 0ull; j < COL; j++)
+        {
+            result += std::to_string(at(i, j));
+            if (j != getNbColumn() - 1)
+                result += ',';
+        }
+        result += "]\n";
+    }
+
+    return result;
 }
 
 #pragma endregion

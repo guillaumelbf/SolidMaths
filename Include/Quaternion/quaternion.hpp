@@ -71,6 +71,14 @@ public:
      */
     static constexpr SelfType lerp(const SelfType& _quat1, const SelfType& _quat2, float _ratio, bool shortestPath = true) noexcept;
 
+    /**
+     * @brief Compute the normalized linear interpolation of quaternion with ratio
+     * @param _quat1 Start quaternion
+     * @param _quat2 End quaternion
+     * @param _ratio Ratio of lerp
+     * @param shortestPath (Optional) Interpolate with the shortest path or not (Default = true)
+     * @return The computed quaternion
+     */
     static constexpr SelfType nlerp(const SelfType& _quat1, const SelfType& _quat2, float _ratio, bool shortestPath = true) noexcept;
 
     /**

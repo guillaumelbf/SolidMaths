@@ -50,6 +50,8 @@ void matrixTest()
     sMat<2,3> sub2(std::array{6.f,5.f,4.f,3.f,2.f,1.f});
 
     std::cout << sMat<2,3>::getSubtract(sub1,sub2) << std::endl;
+
+    std::cout << mat.toString() << std::endl;
 }
 
 void squareMatrixTest()

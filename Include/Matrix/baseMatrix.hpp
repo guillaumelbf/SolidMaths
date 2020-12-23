@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iomanip>
 #include <array>
 #include <ostream>
 
@@ -146,6 +145,12 @@ public:
 	 * @return the pointer of the first data of the matrix
 	 */
 	constexpr Type* getData() noexcept;
+
+	/**
+	 * @brief Put the value of the matrix in string
+	 * @return the string with the value formatted
+	 */
+	std::string toString() const noexcept;
 
 #pragma endregion
 
