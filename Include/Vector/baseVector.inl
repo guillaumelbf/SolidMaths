@@ -298,14 +298,14 @@
 		return divide(_value);
 	}
 
-	BASE_VECTOR_TEMPLATE
+	/*BASE_VECTOR_TEMPLATE
 	constexpr BASE_VECTOR& BASE_VECTOR::operator=(const BASE_VECTOR& _vect) noexcept
 	{
 		for (size_t i = 0; i < DIM; i++)
 			this->data[i] = _vect[i];
 
 		return *this;
-	}
+	}*/
 
 	BASE_VECTOR_TEMPLATE
 	constexpr bool BASE_VECTOR::operator==(const SelfType& _vect) const noexcept

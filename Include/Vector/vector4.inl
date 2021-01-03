@@ -4,13 +4,7 @@
 #define VECTOR_4 sVect4<TYPE>
 
 VECTOR_4_TEMPLATE
-constexpr VECTOR_4::sVect4() : x(this->data[0]), y(this->data[1]), z(this->data[2]), w(this->data[3])
-{
-
-}
-
-VECTOR_4_TEMPLATE
-constexpr VECTOR_4::sVect4(const sVect4& _copy) : x(this->data[0]), y(this->data[1]), z(this->data[2]), w(this->data[3])
+constexpr VECTOR_4::sVect4(const sVect4& _copy) noexcept
 {
 	x = _copy.x;
 	y = _copy.y;
@@ -19,7 +13,16 @@ constexpr VECTOR_4::sVect4(const sVect4& _copy) : x(this->data[0]), y(this->data
 }
 
 VECTOR_4_TEMPLATE
-constexpr VECTOR_4::sVect4(const TYPE& _x, const TYPE& _y, const TYPE& _z, const TYPE& _w) : x(this->data[0]), y(this->data[1]), z(this->data[2]), w(this->data[3])
+constexpr VECTOR_4::sVect4(sVect4&& _move) noexcept
+{
+    x = _move.x;
+    y = _move.y;
+    z = _move.z;
+    w = _move.w;
+}
+
+VECTOR_4_TEMPLATE
+constexpr VECTOR_4::sVect4(const TYPE& _x, const TYPE& _y, const TYPE& _z, const TYPE& _w)
 {
 	x = _x;
 	y = _y;
@@ -28,7 +31,7 @@ constexpr VECTOR_4::sVect4(const TYPE& _x, const TYPE& _y, const TYPE& _z, const
 }
 
 VECTOR_4_TEMPLATE
-constexpr VECTOR_4::sVect4(const TYPE& _value) : x(this->data[0]), y(this->data[1]), z(this->data[2]), w(this->data[3])
+constexpr VECTOR_4::sVect4(const TYPE& _value)
 {
 	x = _value;
 	y = _value;
@@ -37,7 +40,7 @@ constexpr VECTOR_4::sVect4(const TYPE& _value) : x(this->data[0]), y(this->data[
 }
 
 VECTOR_4_TEMPLATE
-constexpr VECTOR_4::sVect4(const BaseVector<4, TYPE>& _copy) : x(this->data[0]), y(this->data[1]), z(this->data[2])
+constexpr VECTOR_4::sVect4(const BaseVector<4, TYPE>& _copy)
 {
     x = _copy[0];
     y = _copy[1];
@@ -64,6 +67,17 @@ constexpr VECTOR_4& VECTOR_4::operator=(const sVect4& _vect) noexcept
 	w = _vect.w;
 
 	return *this;
+}
+
+VECTOR_4_TEMPLATE
+constexpr VECTOR_4& VECTOR_4::operator=(sVect4&& _vect) noexcept
+{
+    x = std::move(_vect.x);
+    y = std::move(_vect.y);
+    z = std::move(_vect.z);
+    w = std::move(_vect.w);
+
+    return *this;
 }
 
 VECTOR_4_TEMPLATE

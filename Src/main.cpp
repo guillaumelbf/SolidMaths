@@ -5,14 +5,43 @@
 #include <array>
 
 #include "Vector/vector4.hpp"
+#include "Vector/vector3.hpp"
+#include "Vector/vector.hpp"
 #include "Matrix/matrix.hpp"
 #include "Matrix/matrix3.hpp"
 #include "Matrix/matrix4.hpp"
 #include "Matrix/squareMatrix.hpp"
 #include "Quaternion/quaternion.hpp"
+#include "Angle/angle.hpp"
 
 void vectorTest()
 {
+    sVect<4> vect(5);
+    sVect<4> vect2;
+
+    vect2 = vect;
+    vect2[0] = 8;
+
+    std::cout << vect << std::endl;
+    std::cout << vect2 << std::endl;
+
+    sVect3 vect_3;
+
+    vect_3.x = 5;
+
+    sVect3 vect2_3;
+
+    vect2_3 = vect_3;
+    vect2_3.z = 8;
+
+    std::cout << vect2_3 << std::endl;
+
+    sVect3 vect3_3(vect2_3);
+
+    vect3_3.z = 5;
+
+    std::cout << vect2_3 << std::endl;
+    std::cout << vect3_3 << std::endl;
 
 }
 
@@ -104,12 +133,18 @@ void quaternionTest()
     std::cout << quat << std::endl;
 }
 
-int main()
+void angleTest()
 {
 
-    matrixTest();
+}
+
+int main()
+{
+    vectorTest();
+    //matrixTest();
     //squareMatrixTest();
     //quaternionTest();
+    //angleTest();
 
     return 0;
 }
