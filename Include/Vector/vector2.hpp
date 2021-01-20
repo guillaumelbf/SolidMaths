@@ -2,28 +2,40 @@
 
 #include "baseVector.hpp"
 
-template <typename TYPE = float>
-class sVect2 : public BaseVector<2, TYPE>
+namespace Solid
 {
-public:
 
-	TYPE& x = data[0];
-	TYPE& y = data[1];
+    template<typename TYPE = float>
+    class Vec2 : public BaseVector<2, TYPE>
+    {
+    public:
 
-	constexpr sVect2()                      noexcept = default;
-	constexpr sVect2(const sVect2& _copy)   noexcept;
-	constexpr sVect2(sVect2&& _move)        noexcept;
-	constexpr sVect2(const TYPE& _x, const TYPE& _y);
-	constexpr sVect2(const TYPE& _value);
-	constexpr sVect2(const BaseVector<2, TYPE>& _copy);
+        TYPE &x = data[0];
+        TYPE &y = data[1];
 
-	constexpr ~sVect2() = default;
+        constexpr Vec2() noexcept = default;
 
-    virtual std::string toString() const noexcept final;
+        constexpr Vec2(const Vec2 &_copy) noexcept;
 
-	constexpr sVect2& operator=(const sVect2& _vect) noexcept;
-	constexpr sVect2& operator=(sVect2&& _vect) noexcept;
-	constexpr sVect2& operator=(const BaseVector<2, TYPE>& _copy) noexcept;
-};
+        constexpr Vec2(Vec2 &&_move) noexcept;
+
+        constexpr Vec2(const TYPE &_x, const TYPE &_y);
+
+        constexpr Vec2(const TYPE &_value);
+
+        constexpr Vec2(const BaseVector<2, TYPE> &_copy);
+
+        constexpr ~Vec2() = default;
+
+        virtual std::string toString() const noexcept final;
+
+        constexpr Vec2 &operator=(const Vec2 &_vect) noexcept;
+
+        constexpr Vec2 &operator=(Vec2 &&_vect) noexcept;
+
+        constexpr Vec2 &operator=(const BaseVector<2, TYPE> &_copy) noexcept;
+    };
+
+} //!namespace
 
 #include "vector2.inl"

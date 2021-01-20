@@ -1,5 +1,6 @@
 //TODO: Doxygene every function
 //TODO: Verify Matrix
+//TODO: add move operator on : Matrix and Quaternions
 #include <iostream>
 
 #include <array>

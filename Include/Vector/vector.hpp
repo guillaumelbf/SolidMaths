@@ -2,21 +2,32 @@
 
 #include "baseVector.hpp"
 
-template<size_t DIM, typename TYPE = float>
-class sVect : public BaseVector<DIM,TYPE>
+namespace Solid
 {
-public:
-	constexpr sVect()                   noexcept = default;
-	constexpr sVect(const sVect& _copy) noexcept = default;
-	constexpr sVect(sVect&& _move)      noexcept = default;
-	constexpr sVect(const TYPE& _value);
-	constexpr sVect(const BaseVector<DIM,TYPE>& _copy);
 
-	~sVect() = default;
+    template<size_t DIM, typename TYPE = float>
+    class Vec : public BaseVector<DIM, TYPE>
+    {
+    public:
+        constexpr Vec() noexcept = default;
 
-	constexpr sVect& operator=(const sVect& _vect)                  noexcept = default;
-	constexpr sVect& operator=(sVect&& _vect)                       noexcept = default;
-    constexpr sVect& operator=(const BaseVector<DIM,TYPE>& _copy)   noexcept;
-};
+        constexpr Vec(const Vec &_copy) noexcept = default;
+
+        constexpr Vec(Vec &&_move) noexcept = default;
+
+        constexpr Vec(const TYPE &_value);
+
+        constexpr Vec(const BaseVector <DIM, TYPE> &_copy);
+
+        ~Vec() = default;
+
+        constexpr Vec &operator=(const Vec &_vect) noexcept = default;
+
+        constexpr Vec &operator=(Vec &&_vect) noexcept = default;
+
+        constexpr Vec &operator=(const BaseVector <DIM, TYPE> &_copy) noexcept;
+    };
+
+} //!namespace
 
 #include "vector.inl"
