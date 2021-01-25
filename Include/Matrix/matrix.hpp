@@ -9,10 +9,9 @@ namespace Solid
     class Mat : public BaseMatrix<ROW, COL, TYPE>
     {
     public:
-        constexpr Mat()
-        {};
-
-        constexpr Mat(const Mat &_copy);
+        constexpr Mat() noexcept = default;
+        constexpr Mat(const Mat &_copy) noexcept = default;
+        constexpr Mat(Mat&& _move) noexcept = default;
 
         constexpr Mat(const TYPE &_value);
 

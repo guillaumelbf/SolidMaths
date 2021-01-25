@@ -7,13 +7,6 @@ namespace Solid
 #define MATRIX_3 Mat3<TYPE>
 
     MATRIX_3_TEMPLATE
-    constexpr MATRIX_3::Mat3(const MATRIX_3 &_copy)
-    {
-        for (int i = 0; i < _copy.getNbElements(); ++i)
-            this->at(i) = _copy.at(i);
-    }
-
-    MATRIX_3_TEMPLATE
     constexpr MATRIX_3::Mat3(const TYPE &_value)
     {
         this->data.fill(_value);

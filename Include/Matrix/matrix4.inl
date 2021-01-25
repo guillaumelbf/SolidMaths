@@ -7,13 +7,6 @@ namespace Solid
 #define MATRIX_4 Mat4<TYPE>
 
     MATRIX_4_TEMPLATE
-    constexpr MATRIX_4::Mat4(const MATRIX_4 &_copy)
-    {
-        for (int i = 0; i < _copy.getNbElements(); ++i)
-            this->at(i) = _copy.at(i);
-    }
-
-    MATRIX_4_TEMPLATE
     constexpr MATRIX_4::Mat4(const TYPE &_value)
     {
         this->data.fill(_value);

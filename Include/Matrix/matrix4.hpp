@@ -11,9 +11,9 @@ namespace Solid
     {
     public:
 
-        constexpr Mat4() = default;
-
-        constexpr Mat4(const Mat4 &_copy);
+        constexpr Mat4() noexcept = default;
+        constexpr Mat4(const Mat4 &_copy) noexcept = default;
+        constexpr Mat4(Mat4&& _move) noexcept = default;
 
         constexpr Mat4(const TYPE &_value);
 

@@ -20,9 +20,9 @@ namespace Solid
         using Type = TYPE;
 
     public:
-        constexpr SquareMat() = default;
-
-        constexpr SquareMat(const SquareMat &_copy);
+        constexpr SquareMat() noexcept = default;
+        constexpr SquareMat(const SquareMat &_copy) noexcept = default;
+        constexpr SquareMat(SquareMat&& _move) noexcept = default;
 
         constexpr SquareMat(const TYPE &_value);
 

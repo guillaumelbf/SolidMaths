@@ -21,9 +21,9 @@ namespace Solid
 
         ~Vec() = default;
 
-        constexpr Vec &operator=(const Vec &_vect) noexcept = default;
+        constexpr Vec &operator=(const Vec &_vec) noexcept = default;
 
-        constexpr Vec &operator=(Vec &&_vect) noexcept = default;
+        constexpr Vec &operator=(Vec &&_vec) noexcept = default;
 
         constexpr Vec &operator=(const BaseVector <DIM, TYPE> &_copy) noexcept;
     };

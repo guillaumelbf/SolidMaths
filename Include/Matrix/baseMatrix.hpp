@@ -25,7 +25,9 @@ namespace Solid
     public:
 #pragma region Constructor
 
-        constexpr BaseMatrix() = default;
+        constexpr BaseMatrix() noexcept = default;
+        constexpr BaseMatrix(const BaseMatrix& _copy) noexcept = default;
+        constexpr BaseMatrix(BaseMatrix&& _move) noexcept = default;
 
         constexpr BaseMatrix(const std::array<TYPE, ROW * COL> &_numbers);
 

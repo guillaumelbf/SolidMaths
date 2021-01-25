@@ -20,15 +20,6 @@ namespace Solid
     }
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::Quat(const Quat& _copy)
-    {
-        w = _copy.w;
-        x = _copy.x;
-        y = _copy.y;
-        z = _copy.z;
-    }
-
-    QUATERNION_TEMPLATE
     constexpr QUATERNION::Quat(TYPE _w, TYPE _x, TYPE _y, TYPE _z)
     {
         w = _w;

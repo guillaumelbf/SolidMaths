@@ -29,9 +29,9 @@ namespace Solid
 
         virtual std::string toString() const noexcept final;
 
-        constexpr Vec3 &operator=(const Vec3 &_vect) noexcept;
+        constexpr Vec3 &operator=(const Vec3 &_vec) noexcept;
 
-        constexpr Vec3 &operator=(Vec3 &&_vect) noexcept;
+        constexpr Vec3 &operator=(Vec3 &&_vec) noexcept;
 
         constexpr Vec3 &operator=(const BaseVector<3, TYPE> &_copy) noexcept;
     };

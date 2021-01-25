@@ -7,13 +7,6 @@ namespace Solid
 #define BASE_MATRIX Mat<ROW,COL,TYPE>
 
     BASE_MATRIX_TEMPLATE
-    constexpr BASE_MATRIX::Mat(const Mat &_copy)
-    {
-        for (int i = 0; i < _copy.getNbElements(); ++i)
-            this->at(i) = _copy.at(i);
-    }
-
-    BASE_MATRIX_TEMPLATE
     constexpr BASE_MATRIX::Mat(const TYPE &_value)
     {
         this->data.fill(_value);

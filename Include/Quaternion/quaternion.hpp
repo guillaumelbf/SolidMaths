@@ -31,8 +31,8 @@ namespace Solid
 #pragma region Constructor
 
         constexpr Quat() noexcept;
-
-        constexpr Quat(const Quat &_copy);
+        constexpr Quat(const Quat &_copy) noexcept = default;
+        constexpr Quat(Quat&& _move) noexcept = default;
 
         /**
          * @brief Create quaternion with value inside

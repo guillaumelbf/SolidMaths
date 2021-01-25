@@ -11,13 +11,6 @@ namespace Solid
 #pragma region Constructor
 
     SQUARE_MATRIX_TEMPLATE
-    constexpr SQUARE_MATRIX::SquareMat(const SquareMat &_copy)
-    {
-        for (int i = 0; i < _copy.getNbElements(); ++i)
-            this->at(i) = _copy.at(i);
-    }
-
-    SQUARE_MATRIX_TEMPLATE
     constexpr SQUARE_MATRIX::SquareMat(const TYPE &_value)
     {
         this->data.fill(_value);

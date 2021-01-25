@@ -10,9 +10,9 @@ namespace Solid
     {
     public:
 
-        constexpr Mat3() = default;
-
-        constexpr Mat3(const Mat3 &_copy);
+        constexpr Mat3() noexcept = default;
+        constexpr Mat3(const Mat3 &_copy) noexcept = default;
+        constexpr Mat3(Mat3&& _copy) noexcept = default;
 
         constexpr Mat3(const TYPE &_value);
 

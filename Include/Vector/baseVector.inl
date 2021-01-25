@@ -13,33 +13,33 @@ namespace Solid
 #pragma region Static Methods
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::lerp(const BASE_VECTOR &_vect1, const BASE_VECTOR &_vect2, float _ratio) noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::lerp(const BASE_VECTOR &_vec1, const BASE_VECTOR &_vec2, float _ratio) noexcept
     {
-        return _vect1 + (_vect2 - _vect1) * _ratio;
+        return _vec1 + (_vec2 - _vec1) * _ratio;
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::slerp(const BASE_VECTOR &_vect1, const BASE_VECTOR &_vect2,
+    constexpr BASE_VECTOR BASE_VECTOR::slerp(const BASE_VECTOR &_vec1, const BASE_VECTOR &_vec2,
                                              float _ratio) noexcept
     {
-        const TYPE dotRes = clamp(dot(_vect1, _vect2), -1.0f, 1.f);
+        const TYPE dotRes = clamp(dot(_vec1, _vec2), -1.0f, 1.f);
         const TYPE theta = acos(dotRes) * _ratio;
 
-        BaseVector rVect = (_vect2 - _vect1 * dotRes).getNormalized();
+        BaseVector rVect = (_vec2 - _vec1 * dotRes).getNormalized();
 
-        return ((_vect1 * cos(theta)) + rVect * sin(theta));
+        return ((_vec1 * cos(theta)) + rVect * sin(theta));
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::cross(const BASE_VECTOR &_vect1, const BASE_VECTOR &_vect2) noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::cross(const BASE_VECTOR &_vec1, const BASE_VECTOR &_vec2) noexcept
     {
-        return _vect1.cross(_vect2);
+        return _vec1.cross(_vec2);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr TYPE BASE_VECTOR::dot(const BASE_VECTOR &_vect1, const BASE_VECTOR &_vect2) noexcept
+    constexpr TYPE BASE_VECTOR::dot(const BASE_VECTOR &_vec1, const BASE_VECTOR &_vec2) noexcept
     {
-        return _vect1.dot(_vect2);
+        return _vec1.dot(_vec2);
     }
 
 #pragma endregion
@@ -84,37 +84,37 @@ namespace Solid
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::add(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::add(const BASE_VECTOR &_vec) noexcept
     {
         for (size_t i = 0; i < DIM; i++)
-            this->data[i] += _vect[i];
+            this->data[i] += _vec[i];
 
         return *this;
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::subtract(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::subtract(const BASE_VECTOR &_vec) noexcept
     {
         for (size_t i = 0; i < DIM; i++)
-            this->data[i] -= _vect[i];
+            this->data[i] -= _vec[i];
 
         return *this;
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::multiply(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::multiply(const BASE_VECTOR &_vec) noexcept
     {
         for (size_t i = 0; i < DIM; i++)
-            this->data[i] *= _vect[i];
+            this->data[i] *= _vec[i];
 
         return *this;
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::divide(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::divide(const BASE_VECTOR &_vec) noexcept
     {
         for (size_t i = 0; i < DIM; i++)
-            this->data[i] = (_vect[i] != 0) ? this->data[i] / _vect[i] : 0;
+            this->data[i] = (_vec[i] != 0) ? this->data[i] / _vec[i] : 0;
 
         return *this;
     }
@@ -159,11 +159,11 @@ namespace Solid
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr bool BASE_VECTOR::isEquals(const BASE_VECTOR &_vect) const noexcept
+    constexpr bool BASE_VECTOR::isEquals(const BASE_VECTOR &_vec) const noexcept
     {
         for (size_t i = 0; i < DIM; i++)
         {
-            if (this->data[i] != _vect[i])
+            if (this->data[i] != _vec[i])
                 return false;
         }
 
@@ -171,24 +171,24 @@ namespace Solid
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr TYPE BASE_VECTOR::dot(const BASE_VECTOR &_vect) const noexcept
+    constexpr TYPE BASE_VECTOR::dot(const BASE_VECTOR &_vec) const noexcept
     {
         TYPE result{};
 
         for (size_t i = 0; i < DIM; i++)
-            result += this->data[i] * _vect[i];
+            result += this->data[i] * _vec[i];
 
         return result;
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::cross(const BASE_VECTOR &_vect) const noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::cross(const BASE_VECTOR &_vec) const noexcept
     {
         BaseVector result;
 
         for (size_t i = 0; i < DIM; i++)
             result.data[i] =
-                    this->data[(i + 1) % DIM] * _vect[(i + 2) % DIM] - _vect[(i + 1) % DIM] * _vect[(i + 2) % DIM];
+                    this->data[(i + 1) % DIM] * _vec[(i + 2) % DIM] - _vec[(i + 1) % DIM] * _vec[(i + 2) % DIM];
 
         return result;
     }
@@ -213,51 +213,51 @@ namespace Solid
 #pragma region Operator
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::operator+(const BASE_VECTOR &_vect) const noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::operator+(const BASE_VECTOR &_vec) const noexcept
     {
-        return BASE_VECTOR(*this).add(_vect);
+        return BASE_VECTOR(*this).add(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::operator-(const BASE_VECTOR &_vect) const noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::operator-(const BASE_VECTOR &_vec) const noexcept
     {
-        return BASE_VECTOR(*this).subtract(_vect);
+        return BASE_VECTOR(*this).subtract(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::operator*(const BASE_VECTOR &_vect) const noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::operator*(const BASE_VECTOR &_vec) const noexcept
     {
-        return BASE_VECTOR(*this).multiply(_vect);
+        return BASE_VECTOR(*this).multiply(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR BASE_VECTOR::operator/(const BASE_VECTOR &_vect) const noexcept
+    constexpr BASE_VECTOR BASE_VECTOR::operator/(const BASE_VECTOR &_vec) const noexcept
     {
-        return BASE_VECTOR(*this).divide(_vect);
+        return BASE_VECTOR(*this).divide(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::operator+=(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::operator+=(const BASE_VECTOR &_vec) noexcept
     {
-        return add(_vect);
+        return add(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::operator-=(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::operator-=(const BASE_VECTOR &_vec) noexcept
     {
-        return subtract(_vect);
+        return subtract(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::operator*=(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::operator*=(const BASE_VECTOR &_vec) noexcept
     {
-        return multiply(_vect);
+        return multiply(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR &BASE_VECTOR::operator/=(const BASE_VECTOR &_vect) noexcept
+    constexpr BASE_VECTOR &BASE_VECTOR::operator/=(const BASE_VECTOR &_vec) noexcept
     {
-        return divide(_vect);
+        return divide(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
@@ -309,24 +309,24 @@ namespace Solid
     }
 
     /*BASE_VECTOR_TEMPLATE
-    constexpr BASE_VECTOR& BASE_VECTOR::operator=(const BASE_VECTOR& _vect) noexcept
+    constexpr BASE_VECTOR& BASE_VECTOR::operator=(const BASE_VECTOR& _vec) noexcept
     {
         for (size_t i = 0; i < DIM; i++)
-            this->data[i] = _vect[i];
+            this->data[i] = _vec[i];
 
         return *this;
     }*/
 
     BASE_VECTOR_TEMPLATE
-    constexpr bool BASE_VECTOR::operator==(const SelfType &_vect) const noexcept
+    constexpr bool BASE_VECTOR::operator==(const SelfType &_vec) const noexcept
     {
-        return isEquals(_vect);
+        return isEquals(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
-    constexpr bool BASE_VECTOR::operator!=(const SelfType &_vect) const noexcept
+    constexpr bool BASE_VECTOR::operator!=(const SelfType &_vec) const noexcept
     {
-        return !isEquals(_vect);
+        return !isEquals(_vec);
     }
 
     BASE_VECTOR_TEMPLATE
