@@ -2,20 +2,31 @@
 
 #include "squareMatrix.hpp"
 
-template <typename TYPE = float>
-class sMat3 : public sSquareMat<3, TYPE>
+namespace Solid
 {
-public:
 
-    constexpr sMat3() = default;
-    constexpr sMat3(const sMat3& _copy);
-    constexpr sMat3(const TYPE& _value);
-    constexpr sMat3(const BaseMatrix<3,3,TYPE>& _copy);
-    constexpr sMat3(const sSquareMat<3,TYPE>& _copy);
+    template<typename TYPE = float>
+    class Mat3 : public SquareMat<3, TYPE>
+    {
+    public:
 
-    constexpr sMat3& operator=(const sMat3& _mat) noexcept;
-    constexpr sMat3& operator=(const BaseMatrix<3,3,TYPE>& _copy) noexcept;
-    constexpr sMat3& operator=(const sSquareMat<3,TYPE>& _copy) noexcept;
-};
+        constexpr Mat3() = default;
+
+        constexpr Mat3(const Mat3 &_copy);
+
+        constexpr Mat3(const TYPE &_value);
+
+        constexpr Mat3(const BaseMatrix<3, 3, TYPE> &_copy);
+
+        constexpr Mat3(const SquareMat<3, TYPE> &_copy);
+
+        constexpr Mat3 &operator=(const Mat3 &_mat) noexcept;
+
+        constexpr Mat3 &operator=(const BaseMatrix<3, 3, TYPE> &_copy) noexcept;
+
+        constexpr Mat3 &operator=(const SquareMat<3, TYPE> &_copy) noexcept;
+    };
+
+} //!namespace
 
 #include "matrix3.inl"

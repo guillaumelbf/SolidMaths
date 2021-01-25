@@ -2,17 +2,27 @@
 
 #include "baseMatrix.hpp"
 
-template <size_t ROW, size_t COL, typename TYPE = float>
-class sMat : public BaseMatrix<ROW,COL,TYPE>
+namespace Solid
 {
-public:
-    constexpr sMat() {};
-    constexpr sMat(const sMat& _copy);
-    constexpr sMat(const TYPE& _value);
-    constexpr sMat(const BaseMatrix<ROW,COL,TYPE>& _copy);
 
-    constexpr sMat& operator=(const sMat& _mat) noexcept;
-    constexpr sMat& operator=(const BaseMatrix<ROW,COL,TYPE>& _copy) noexcept;
-};
+    template<size_t ROW, size_t COL, typename TYPE = float>
+    class Mat : public BaseMatrix<ROW, COL, TYPE>
+    {
+    public:
+        constexpr Mat()
+        {};
+
+        constexpr Mat(const Mat &_copy);
+
+        constexpr Mat(const TYPE &_value);
+
+        constexpr Mat(const BaseMatrix<ROW, COL, TYPE> &_copy);
+
+        constexpr Mat &operator=(const Mat &_mat) noexcept;
+
+        constexpr Mat &operator=(const BaseMatrix<ROW, COL, TYPE> &_copy) noexcept;
+    };
+
+} //!namespace
 
 #include "matrix.inl"

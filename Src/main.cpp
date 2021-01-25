@@ -13,31 +13,32 @@
 #include "Matrix/matrix4.hpp"
 #include "Matrix/squareMatrix.hpp"
 #include "Quaternion/quaternion.hpp"
-#include "Angle/angle.hpp"
+
+using namespace Solid;
 
 void vectorTest()
 {
-    sVect<4> vect(5);
-    sVect<4> vect2;
+    Vec<4> vec(5);
+    Vec<4> vec2;
 
-    vect2 = vect;
-    vect2[0] = 8;
+    vec2 = vec;
+    vec2[0] = 8;
 
-    std::cout << vect << std::endl;
-    std::cout << vect2 << std::endl;
+    std::cout << vec << std::endl;
+    std::cout << vec2 << std::endl;
 
-    sVect3 vect_3;
+    Vec3 vect_3;
 
     vect_3.x = 5;
 
-    sVect3 vect2_3;
+    Vec3 vect2_3;
 
     vect2_3 = vect_3;
     vect2_3.z = 8;
 
     std::cout << vect2_3 << std::endl;
 
-    sVect3 vect3_3(vect2_3);
+    Vec3 vect3_3(vect2_3);
 
     vect3_3.z = 5;
 
@@ -48,65 +49,65 @@ void vectorTest()
 
 void matrixTest()
 {
-    sMat<2,3,float> mat(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
+    Mat<2,3,float> mat(std::array{1.f, 2.f, 3.f, 4.f, 5.f, 6.f});
 
-    sMat<3,2> mat2 = sMat<2,3>::getTransposed(mat);
+    Mat<3,2> mat2 = Mat<2,3>::getTransposed(mat);
 
     std::cout << mat << std::endl;
     std::cout << mat2 << std::endl;
 
-    sMat<2,2> mat3 = sMat<2,3>::getMultiplied<3,2>(mat,mat2);
+    Mat<2,2> mat3 = Mat<2,3>::getMultiplied<3,2>(mat, mat2);
 
     std::cout << mat3 << std::endl;
 
     //sSquareMat<4> mat4 = sSquareMat<4>::identity();
-    sMat3<> mat4;
+    Mat3<> mat4;
 
-    mat4 = sMat3<>::identity();
+    mat4 = Mat3<>::identity();
 
     std::cout << mat4 << std::endl;
 
-    sMat4 mat5(1);
+    Mat4 mat5(1);
 
     mat5.at(5) = 42;
 
     std::cout << mat5 << std::endl;
 
-    sMat<2,3> add(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
+    Mat<2,3> add(std::array{1.f, 2.f, 3.f, 4.f, 5.f, 6.f});
 
-    std::cout << sMat<2,3>::getAdd(add,add) << std::endl;
+    std::cout << Mat<2,3>::getAdd(add, add) << std::endl;
 
-    sMat<2,3> sub1(std::array{1.f,2.f,3.f,4.f,5.f,6.f});
-    sMat<2,3> sub2(std::array{6.f,5.f,4.f,3.f,2.f,1.f});
+    Mat<2,3> sub1(std::array{1.f, 2.f, 3.f, 4.f, 5.f, 6.f});
+    Mat<2,3> sub2(std::array{6.f, 5.f, 4.f, 3.f, 2.f, 1.f});
 
-    std::cout << sMat<2,3>::getSubtract(sub1,sub2) << std::endl;
+    std::cout << Mat<2,3>::getSubtract(sub1, sub2) << std::endl;
 
     std::cout << mat.toString() << std::endl;
 }
 
 void squareMatrixTest()
 {
-    sSquareMat<3> mat;
+    SquareMat<3> mat;
 
     for (int i = 0; i < mat.getNbElements(); ++i)
         mat.at(i) = i+1;
 
-    sSquareMat<3> mat2 = mat;
-    sSquareMat<3> mat3;
+    SquareMat<3> mat2 = mat;
+    SquareMat<3> mat3;
     for (int i = 0; i < mat.getNbElements(); ++i)
         mat3.at(i) = mat.at((mat.getNbElements()-i)-1);
 
-    sMat4 mat4;
+    Mat4 mat4;
     for (int i = 0; i < mat4.getNbElements(); ++i)
         mat4.at(i) = i+1;
-    sVect4 vect4;
+    Vec4 vec4;
     for (int i = 0; i < 4; ++i)
-        vect4[i] = i+1;
+        vec4[i] = i+1;
 
     std::cout << mat << std::endl;
     std::cout << mat3 << std::endl;
 
-    std::cout << sSquareMat<3>::getMultiplied(mat,mat3) << std::endl;
+    std::cout << SquareMat<3>::getMultiplied(mat, mat3) << std::endl;
 
     mat.transpose();
 
@@ -117,15 +118,15 @@ void squareMatrixTest()
     std::cout << mat2.getInverted() << std::endl;
 
     std::cout << "Mat4: \n" << mat4 << std::endl;
-    std::cout << "Vect4: \n" << vect4 << std::endl;
+    std::cout << "Vect4: \n" << vec4 << std::endl;
 
-    std::cout << "Mat4 * Vect4: \n" << sMat4<>::getMultiplied(mat4,vect4) << std::endl;
+    std::cout << "Mat4 * Vect4: \n" << Mat4<>::getMultiplied(mat4, vec4) << std::endl;
 }
 
 void quaternionTest()
 {
-    sQuaternion quat(1.f,0.1f,0.2f,0.3f);
-    sQuaternion quat2(1.f,0.4f,0.4f,0.4f);
+    Quat quat(1.f, 0.1f, 0.2f, 0.3f);
+    Quat quat2(1.f, 0.4f, 0.4f, 0.4f);
 
     std::cout << quat << std::endl;
 

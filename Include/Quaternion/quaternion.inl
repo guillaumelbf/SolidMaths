@@ -2,13 +2,16 @@
 
 #include <cmath>
 
+namespace Solid
+{
+
 #define QUATERNION_TEMPLATE template<typename TYPE>
-#define QUATERNION sQuaternion<TYPE>
+#define QUATERNION Quat<TYPE>
 
 #pragma region Constructor
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::sQuaternion() noexcept
+    constexpr QUATERNION::Quat() noexcept
     {
         w = 1;
         x = 0;
@@ -17,7 +20,7 @@
     }
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::sQuaternion(const sQuaternion& _copy)
+    constexpr QUATERNION::Quat(const Quat& _copy)
     {
         w = _copy.w;
         x = _copy.x;
@@ -26,7 +29,7 @@
     }
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::sQuaternion(TYPE _w, TYPE _x, TYPE _y, TYPE _z)
+    constexpr QUATERNION::Quat(TYPE _w, TYPE _x, TYPE _y, TYPE _z)
     {
         w = _w;
         x = _x;
@@ -35,7 +38,7 @@
     }
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::sQuaternion(TYPE _xAxis, TYPE _yAxis, TYPE _zAxis)
+    constexpr QUATERNION::Quat(TYPE _xAxis, TYPE _yAxis, TYPE _zAxis)
     {
         TYPE cosX = cos(_xAxis*0.5);
         TYPE cosY = cos(_yAxis*0.5);
@@ -51,9 +54,9 @@
     }
 
     QUATERNION_TEMPLATE
-    constexpr QUATERNION::sQuaternion(const sVect3<TYPE>& _vect)
+    constexpr QUATERNION::Quat(const Vec3<TYPE>& _vec)
     {
-        *this = sQuaternion(_vect.x,_vect.y,_vect.z);
+        *this = Quat(_vec.x, _vec.y, _vec.z);
     }
 
 #pragma endregion
@@ -67,16 +70,16 @@
 
         if(shortestPath)
         {
-            float sign = (sQuaternion::dot(_quat1, _quat2) < 0.0f) ? -1.0f : 1.0f;
+            float sign = (Quat::dot(_quat1, _quat2) < 0.0f) ? -1.0f : 1.0f;
 
-            return sQuaternion(cRatio * _quat1.w + sign * _ratio * _quat2.w,
+            return Quat(cRatio * _quat1.w + sign * _ratio * _quat2.w,
                                cRatio * _quat1.x + sign * _ratio * _quat2.x,
                                cRatio * _quat1.y + sign * _ratio * _quat2.y,
                                cRatio * _quat1.z + sign * _ratio * _quat2.z);
         }
         else
         {
-            return sQuaternion(cRatio * _quat1.w + _ratio * _quat2.w,
+            return Quat(cRatio * _quat1.w + _ratio * _quat2.w,
                                cRatio * _quat1.x + _ratio * _quat2.x,
                                cRatio * _quat1.y + _ratio * _quat2.y,
                                cRatio * _quat1.z + _ratio * _quat2.z);
@@ -93,7 +96,7 @@
     constexpr QUATERNION QUATERNION::slerp(const QUATERNION& _quat1, const QUATERNION& _quat2, float _ratio, bool shortestPath) noexcept
     {
         float cRatio = 1 - _ratio;
-        TYPE dot    = sQuaternion::dot(_quat1,_quat2);
+        TYPE dot    = Quat::dot(_quat1, _quat2);
         TYPE theta  = acos(dot);
         TYPE sTheta = sin(theta);
 
@@ -101,11 +104,11 @@
         {
             float sign = (dot < 0.0f) ? -1.0f : 1.0f;
 
-            return sQuaternion(_quat1 * ((sin(cRatio) * theta) / sTheta) + _quat2 * (sin(sign * _ratio * theta) / sTheta)).getNormalized();
+            return Quat(_quat1 * ((sin(cRatio) * theta) / sTheta) + _quat2 * (sin(sign * _ratio * theta) / sTheta)).getNormalized();
         }
         else
         {
-            return sQuaternion(_quat1 * ((sin(cRatio) * theta) / sTheta) + _quat2 * (sin(_ratio * theta) / sTheta)).getNormalized();
+            return Quat(_quat1 * ((sin(cRatio) * theta) / sTheta) + _quat2 * (sin(_ratio * theta) / sTheta)).getNormalized();
         }
     }
 
@@ -119,31 +122,31 @@
     constexpr QUATERNION QUATERNION::getNormalized(const QUATERNION& _quat) noexcept
     {
         TYPE len = _quat.length();
-        return sQuaternion(_quat.w / len, _quat.x / len, _quat.y / len, _quat.z / len);
+        return Quat(_quat.w / len, _quat.x / len, _quat.y / len, _quat.z / len);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getInverted(const QUATERNION& _quat) noexcept
     {
-        return sQuaternion(_quat.w, -_quat.x, -_quat.y, -_quat.z);
+        return Quat(_quat.w, -_quat.x, -_quat.y, -_quat.z);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getAdded(const QUATERNION& _quat1, const QUATERNION& _quat2) noexcept
     {
-        return sQuaternion(_quat1.w + _quat2.w, _quat1.x + _quat2.x, _quat1.y + _quat2.y, _quat1.z + _quat2.z);
+        return Quat(_quat1.w + _quat2.w, _quat1.x + _quat2.x, _quat1.y + _quat2.y, _quat1.z + _quat2.z);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getSubstract(const QUATERNION& _quat1, const QUATERNION& _quat2) noexcept
     {
-        return sQuaternion(_quat1.w - _quat2.w, _quat1.x - _quat2.x, _quat1.y - _quat2.y, _quat1.z - _quat2.z);
+        return Quat(_quat1.w - _quat2.w, _quat1.x - _quat2.x, _quat1.y - _quat2.y, _quat1.z - _quat2.z);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getMultiplied(const QUATERNION& _quat1, const QUATERNION& _quat2) noexcept
     {
-        return sQuaternion(_quat1.w * _quat2.w - (_quat1.x * _quat2.x + _quat1.y * _quat2.y + _quat1.z * _quat2.z),
+        return Quat(_quat1.w * _quat2.w - (_quat1.x * _quat2.x + _quat1.y * _quat2.y + _quat1.z * _quat2.z),
                           _quat1.w * _quat2.x + _quat2.w * _quat1.x + (_quat1.y * _quat2.z - _quat2.y * _quat1.z),
                           _quat1.w * _quat2.y + _quat2.w * _quat1.y + (_quat1.z * _quat2.x - _quat2.z * _quat1.x),
                           _quat1.w * _quat2.z + _quat2.w * _quat1.z + (_quat1.x * _quat2.y - _quat2.x * _quat1.y));
@@ -152,7 +155,7 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getMultiplied(const QUATERNION& _quat, TYPE _real) noexcept
     {
-        return sQuaternion(_quat.w * _real, _quat.x * _real, _quat.y * _real, _quat.z * _real);
+        return Quat(_quat.w * _real, _quat.x * _real, _quat.y * _real, _quat.z * _real);
     }
 
 #pragma endregion
@@ -162,33 +165,33 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::lerp(const QUATERNION& _quat, float _ratio, bool shortestPath) noexcept
     {
-        *this = sQuaternion::lerp(*this,_quat,_ratio,shortestPath);
+        *this = Quat::lerp(*this, _quat, _ratio, shortestPath);
         return *this;
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::slerp(const QUATERNION& _quat, float _ratio, bool shortestPath) noexcept
     {
-        *this = sQuaternion::slerp(*this,_quat,_ratio,shortestPath);
+        *this = Quat::slerp(*this, _quat, _ratio, shortestPath);
         return *this;
     }
 
     QUATERNION_TEMPLATE
     constexpr TYPE QUATERNION::dot(const QUATERNION& _quat) const noexcept
     {
-        return sQuaternion::dot(*this,_quat);
+        return Quat::dot(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getNormalized() noexcept
     {
-        return sQuaternion::getNormalized(*this);
+        return Quat::getNormalized(*this);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::normalize() noexcept
     {
-        *this = sQuaternion::getNormalized(*this);
+        *this = Quat::getNormalized(*this);
         return *this;
     }
 
@@ -207,52 +210,52 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getInverted() const noexcept
     {
-        return sQuaternion::getInverted(*this);
+        return Quat::getInverted(*this);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::invert() noexcept
     {
-        *this = sQuaternion::getInverted(*this);
+        *this = Quat::getInverted(*this);
         return *this;
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getAdded(const QUATERNION& _quat) noexcept
     {
-        return sQuaternion::getAdded(*this,_quat);
+        return Quat::getAdded(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::add(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getAdded(*this,_quat);
+        *this = Quat::getAdded(*this, _quat);
         return *this;
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getSubstract(const QUATERNION& _quat) noexcept
     {
-        return sQuaternion::getSubstract(*this,_quat);
+        return Quat::getSubstract(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::substract(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getSubstract(*this,_quat);
+        *this = Quat::getSubstract(*this, _quat);
         return *this;
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::getMultiplied(const QUATERNION& _quat) const noexcept
     {
-        return sQuaternion::getMultiplied(*this,_quat);
+        return Quat::getMultiplied(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION& QUATERNION::multiply(const QUATERNION& _quat) noexcept
     {
-        *this = sQuaternion::getMultiplied(*this,_quat);
+        *this = Quat::getMultiplied(*this, _quat);
         return *this;
     }
 
@@ -280,19 +283,19 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::operator+(const QUATERNION& _quat) const noexcept
     {
-        return sQuaternion::getAdded(*this,_quat);
+        return Quat::getAdded(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::operator-(const QUATERNION& _quat) const noexcept
     {
-        return sQuaternion::getSubstract(*this,_quat);
+        return Quat::getSubstract(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::operator*(const QUATERNION& _quat) const noexcept
     {
-        return sQuaternion::getMultiplied(*this,_quat);
+        return Quat::getMultiplied(*this, _quat);
     }
 
     QUATERNION_TEMPLATE
@@ -316,10 +319,12 @@
     QUATERNION_TEMPLATE
     constexpr QUATERNION QUATERNION::operator*(Type _real) const noexcept
     {
-        return sQuaternion::getMultiplied(*this, _real);
+        return Quat::getMultiplied(*this, _real);
     }
 
 #pragma endregion
 
 #undef QUATERNION_TEMPLATE
 #undef QUATERNION
+
+} // !namespace

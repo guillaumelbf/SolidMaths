@@ -3,20 +3,30 @@
 #include "squareMatrix.hpp"
 #include "Vector/vector4.hpp"
 
-template <typename TYPE = float>
-class sMat4 : public sSquareMat<4, TYPE>
+namespace Solid
 {
-public:
 
-    constexpr sMat4() = default;
-    constexpr sMat4(const sMat4& _copy);
-    constexpr sMat4(const TYPE& _value);
-    constexpr sMat4(const BaseMatrix<4, 4, TYPE>& _copy);
-    constexpr sMat4(const sSquareMat<4, TYPE>& _copy);
+    template<typename TYPE = float>
+    class Mat4 : public SquareMat<4, TYPE>
+    {
+    public:
 
-    constexpr sMat4& operator=(const sMat4& _mat) noexcept;
-    constexpr sMat4& operator=(const BaseMatrix<4, 4, TYPE>& _copy) noexcept;
-    constexpr sMat4& operator=(const sSquareMat<4, TYPE>& _copy) noexcept;
-};
+        constexpr Mat4() = default;
 
+        constexpr Mat4(const Mat4 &_copy);
+
+        constexpr Mat4(const TYPE &_value);
+
+        constexpr Mat4(const BaseMatrix<4, 4, TYPE> &_copy);
+
+        constexpr Mat4(const SquareMat<4, TYPE> &_copy);
+
+        constexpr Mat4 &operator=(const Mat4 &_mat) noexcept;
+
+        constexpr Mat4 &operator=(const BaseMatrix<4, 4, TYPE> &_copy) noexcept;
+
+        constexpr Mat4 &operator=(const SquareMat<4, TYPE> &_copy) noexcept;
+    };
+
+} //!namespace
 #include "matrix4.inl"
